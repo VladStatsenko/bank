@@ -1,26 +1,27 @@
 package controllers;
 
-import dto.request.BranchRequest;
-import dto.request.ClientRequest;
-import dto.response.InfoDto;
+import dto.request.ClientDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.List;
+
+@RequestMapping("/client")
 public interface ClientController {
 
-    @GetMapping(name = "client")
-    ResponseEntity<InfoDto> getAllClients();
+    @GetMapping
+    ResponseEntity<List<ClientDto>> getAllClients();
 
-    @GetMapping(name = "/client/{id}")
-    ResponseEntity<InfoDto> getClientById(@PathVariable int id);
+    @GetMapping("/{id}")
+    ResponseEntity<ClientDto> getClient(@PathVariable int id);
 
-    @PostMapping(name = "/client")
-    ResponseEntity<InfoDto> createClient(@RequestBody ClientRequest clientRequest);
+    @PostMapping
+    ResponseEntity<ClientDto> createClient(@RequestBody ClientDto clientDto);
 
-    @PutMapping(name = "/client/{id}")
-    ResponseEntity<InfoDto> editClient(@RequestBody ClientRequest clientRequest, @PathVariable int id);
+    @PutMapping("/{id}")
+    ResponseEntity<ClientDto> editClient(@RequestBody ClientDto clientDto, @PathVariable int id);
 
-    @DeleteMapping(name = "/client/{id}")
-    ResponseEntity<InfoDto> deleteClient(@PathVariable int id);
+    @DeleteMapping("/{id}")
+    ResponseEntity<HttpStatus> deleteClient(@PathVariable int id);
 }

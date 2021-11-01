@@ -1,4 +1,4 @@
-package kafka.consumer;
+package org.statsenko.kafka.consumer;
 
 import org.springframework.kafka.annotation.KafkaListener;
 

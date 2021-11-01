@@ -1,4 +1,4 @@
-package entity;
+package org.statsenko.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,9 +7,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "account")
+@Table(schema = "bank", name = "account")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,9 +24,9 @@ public class Account implements Serializable {
     private String numberAccount;
 
     @Column(name = "created_ts")
-    private int createdTs;
+    private LocalDateTime createdTs;
     @Column(name = "updated_ts")
-    private int updatedTs;
+    private LocalDateTime updatedTs;
 
     @ManyToOne
     @JoinColumn(name = "client_id")

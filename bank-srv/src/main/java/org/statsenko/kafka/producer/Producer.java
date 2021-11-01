@@ -1,4 +1,4 @@
-package kafka.producer;
+package org.statsenko.kafka.producer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;

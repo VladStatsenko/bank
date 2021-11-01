@@ -1,27 +1,23 @@
 package controllers;
 
-import dto.request.AccountRequest;
-import dto.request.BranchRequest;
+import dto.request.AccountDto;
 import dto.response.InfoDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.List;
+
+@RequestMapping("/account")
 public interface AccountController {
 
 
-    @GetMapping(name = "/account")
-    ResponseEntity<InfoDto> getAllAccounts();
+    @GetMapping
+    ResponseEntity<List<AccountDto>> getAllAccounts();
 
-    @GetMapping(name = "/account/{id}")
-    ResponseEntity<InfoDto> getAccountById(@PathVariable int id);
 
-    @PostMapping(name = "/account")
-    ResponseEntity<InfoDto> createAccount(@RequestBody AccountRequest accountRequest);
+    @PostMapping
+    ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto);
 
-    @PutMapping(name = "/account/{id}")
-    ResponseEntity<InfoDto> editAccount(@RequestBody AccountRequest accountRequest, @PathVariable int id);
-
-    @DeleteMapping(name = "/account/{id}")
+    @DeleteMapping("/{id}")
     ResponseEntity<InfoDto> deleteAccount(@PathVariable int id);
 }

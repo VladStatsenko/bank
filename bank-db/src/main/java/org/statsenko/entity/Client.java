@@ -1,4 +1,4 @@
-package entity;
+package org.statsenko.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,12 +7,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "client")
+@Table(schema = "bank",name = "client")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,14 +38,10 @@ public class Client implements Serializable {
     @OneToOne(mappedBy = "client")
     private Profile profile;
 
-    @ManyToOne
-    @JoinColumn(name = "bank_id")
-    private Bank client;
-
     @Column(name = "created_ts")
-    private int createdTs;
+    private LocalDateTime createdTs;
     @Column(name = "updated_ts")
-    private int updatedTs;
+    private LocalDateTime updatedTs;
 
     @OneToMany(mappedBy = "account")
     private List<Account> accounts = new ArrayList<>();
