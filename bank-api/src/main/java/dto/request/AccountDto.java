@@ -5,18 +5,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.statsenko.entity.Account;
+import org.statsenko.entity.AccountType;
+import org.statsenko.entity.Bank;
+import org.statsenko.entity.Client;
+
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountDto {
-    @JsonProperty("bank_id")
-    private int bankId;
-    @JsonProperty("account_type")
-    private int accountType;
+public class AccountDto implements Serializable {
 
-    public AccountDto(Account account){
-        this.accountType = account.getType().getAccountTypeId();
-        this.bankId = account.getBankAccounts().getBankId();
-    }
+    private String numberAccount;
+    private Client account;
+    private Integer clientId;
+    private Integer bankId;
+    private Integer typeId;
+
 }

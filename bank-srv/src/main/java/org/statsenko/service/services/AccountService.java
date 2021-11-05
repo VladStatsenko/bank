@@ -2,40 +2,31 @@ package org.statsenko.service.services;
 
 import dto.request.AccountDto;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.statsenko.entity.Account;
-import org.statsenko.entity.AccountType;
-import org.statsenko.entity.Bank;
+import org.statsenko.mapper.AccountMapper;
 import org.statsenko.repository.AccountRepository;
-import org.statsenko.repository.AccountTypeRepository;
-import org.statsenko.repository.BankRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class AccountService {
 
+    private static final AccountMapper REST_MAPPER = Mappers.getMapper(AccountMapper.class);
+
     @Autowired
     private final AccountRepository accountRepository;
-    private final AccountTypeRepository accountTypeRepository;
-    private final BankRepository bankRepository;
 
     public List<AccountDto> getAllAccounts(){
-        List<AccountDto> accountDtoList = accountRepository.findAll()
-                .stream().map(AccountDto::new).collect(Collectors.toList());
+        List<AccountDto> accountDtoList = REST_MAPPER.toDtoList(accountRepository.findAll());
         return accountDtoList;
     }
 
     public AccountDto createAccount(AccountDto accountDto){
-        Account account = new Account();
-        AccountType type = accountTypeRepository.findById(accountDto.getAccountType()).orElse(null);
-        account.setType(type);
-        account.setNumberAccount("Random");
-        Bank bank = bankRepository.findById(accountDto.getBankId()).orElse(null);
-        account.setBankAccounts(bank);
+        Account account = REST_MAPPER.toEntity(accountDto);
 
         accountRepository.save(account);
 

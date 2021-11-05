@@ -2,43 +2,37 @@ package org.statsenko.service.services;
 
 
 import dto.request.BranchDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.statsenko.entity.Bank;
-import org.statsenko.entity.Branch;
-import org.statsenko.repository.BankRepository;
-import org.statsenko.repository.BranchRepository;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.statsenko.entity.Branch;
+import org.statsenko.mapper.BranchMapper;
+import org.statsenko.repository.BranchRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class BranchService{
 
+    private static final BranchMapper REST_MAPPER = Mappers.getMapper(BranchMapper.class);
+
     @Autowired
     private final BranchRepository branchRepository;
-    private final BankRepository bankRepository;
-
 
     public List<BranchDto> allBranch(){
-        List<BranchDto> branchDtoList = branchRepository.findAll()
-                .stream().map(BranchDto::new).collect(Collectors.toList());
+        List<BranchDto> branchDtoList = REST_MAPPER.toDtoList(branchRepository.findAll());
         return branchDtoList;
     }
 
     public BranchDto getBranchById(int id){
-        BranchDto branchDto = branchRepository.findById(id).map(BranchDto::new).get();
+        BranchDto branchDto = REST_MAPPER.toDto(branchRepository.getById(id));
         return branchDto;
     }
 
     public BranchDto createBranch(BranchDto branchDto){
-        Branch branch = new Branch();
-        branch.setBranchName(branchDto.getName());
-        branch.setLocation(branchDto.getLocation());
-        Bank bank = bankRepository.findById(branchDto.getBankId()).orElse(null);
-        branch.setMain(bank);
+        Branch branch = REST_MAPPER.toEntity(branchDto);
 
         branchRepository.save(branch);
         return branchDto;
@@ -49,10 +43,8 @@ public class BranchService{
     }
 
     public BranchDto editBranch(BranchDto branchDto, int id){
-        Branch branch = branchRepository.findById(id).orElse(null);
-
-        branch.setBranchName(branchDto.getName());
-        branch.setLocation(branchDto.getLocation());
+        Branch branch = REST_MAPPER.toEntity(branchDto);
+        branch.setBranchId(id);
 
         branchRepository.save(branch);
         return branchDto;

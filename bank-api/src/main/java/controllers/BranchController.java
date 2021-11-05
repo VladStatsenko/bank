@@ -1,14 +1,15 @@
 package controllers;
 
 import dto.request.BranchDto;
+import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequestMapping("branch")
+@Api("branch controller")
 public interface BranchController {
-
 
     @GetMapping
     ResponseEntity<List<BranchDto>> getAllBranch();

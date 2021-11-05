@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account implements Serializable {
+public class Account extends AbstractEntity {
     @Column(name = "account_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

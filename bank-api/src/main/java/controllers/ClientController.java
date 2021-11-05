@@ -1,6 +1,7 @@
 package controllers;
 
 import dto.request.ClientDto;
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequestMapping("/client")
+@Api("client controller")
 public interface ClientController {
 
     @GetMapping

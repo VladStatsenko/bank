@@ -2,43 +2,36 @@ package org.statsenko.service.services;
 
 import dto.request.ClientDto;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.statsenko.entity.Client;
+import org.statsenko.mapper.ClientMapper;
 import org.statsenko.repository.ClientRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class ClientService {
 
+    private static final ClientMapper REST_MAPPER = Mappers.getMapper(ClientMapper.class);
+
     @Autowired
     private final ClientRepository clientRepository;
 
     public List<ClientDto> getAllClients(){
-        List<ClientDto> clientDtoList = clientRepository.findAll()
-                .stream().map(ClientDto::new).collect(Collectors.toList());
+        List<ClientDto> clientDtoList = REST_MAPPER.toDtoList(clientRepository.findAll());
         return clientDtoList;
     }
 
     public ClientDto getClientById(int id){
-        ClientDto client = clientRepository.findById(id)
-                .map(ClientDto::new).get();
+        ClientDto client = REST_MAPPER.toDto(clientRepository.getById(id));
         return client;
     }
 
     public ClientDto createClient(ClientDto clientDto){
-        Client client = new Client();
-        client.setFirstName(clientDto.getFirstName());
-        client.setLastName(clientDto.getLastName());
-        client.setMidName(clientDto.getMidName());
-        client.setBirthDate(clientDto.getBirthDate());
-        client.setTIN(clientDto.getTin());
-        client.getProfile().setClient(client);
-        client.getProfile().setLogin(clientDto.getLogin());
-        client.getProfile().setPassword(clientDto.getPassword());
+        Client client = REST_MAPPER.toEntity(clientDto);
 
         clientRepository.save(client);
 
@@ -46,12 +39,8 @@ public class ClientService {
     }
 
     public ClientDto editClient(ClientDto clientDto, int id){
-        Client client = clientRepository.findById(id).orElse(null);
-        client.setFirstName(clientDto.getFirstName());
-        client.setLastName(clientDto.getLastName());
-        client.setMidName(clientDto.getMidName());
-        client.setBirthDate(clientDto.getBirthDate());
-        client.setTIN(clientDto.getTin());
+        Client client = REST_MAPPER.toEntity(clientDto);
+        client.setClientId(id);
 
         clientRepository.save(client);
         return clientDto;

@@ -1,24 +1,18 @@
 package dto.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.statsenko.entity.Branch;
+
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BranchDto {
+public class BranchDto implements Serializable {
 
-    @JsonProperty("bank_id")
-    private int bankId;
-    private String name;
+    private String branchName;
     private String location;
+    private Integer bankId;
 
-    public BranchDto(Branch branch){
-        this.name = branch.getBranchName();
-        this.bankId = branch.getMain().getBankId();
-        this.location = branch.getLocation();
-    }
 }
