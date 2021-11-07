@@ -10,15 +10,16 @@ import java.util.List;
 @Mapper
 public interface ClientMapper extends ViewMapper<Client, ClientDto> {
 
-    @Mapping(source = "profile.profileId", target = "profileId")
+    @Mapping(source = "profile.login",target = "login")
     @Override
     ClientDto toDto(Client entity);
 
-    @Mapping(source = "profile.profileId", target = "profileId")
+    @Mapping(source = "profile.login",target = "login")
     @Override
     List<ClientDto> toDtoList(List<Client> entityList);
 
-    @Mapping(source = "profileId", target = "profile.profileId")
+    @Mapping(source = "login",target = "profile.profileId")
     @Override
     Client toEntity(ClientDto dto);
+
 }

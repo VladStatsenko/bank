@@ -18,6 +18,5 @@ public class ProfileDto implements Serializable {
     private String firstName;
     @JsonProperty("last_name")
     private String lastName;
-    private Integer clientId;
 
 }

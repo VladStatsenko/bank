@@ -13,6 +13,6 @@ public class BranchDto implements Serializable {
 
     private String branchName;
     private String location;
-    private Integer bankId;
+    private String main;
 
 }

@@ -29,7 +29,7 @@ public class Account extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private Client account;
+    private Client client;
 
     @ManyToOne
     @JoinColumn(name = "bank_id")

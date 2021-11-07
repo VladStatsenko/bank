@@ -32,9 +32,10 @@ public class Client extends AbstractEntity {
     @Column(name = "birth_date")
     private Date birthDate;
     @Column(name = "tin")
-    private String TIN;
+    private String tin;
 
-    @OneToOne(mappedBy = "client")
+    @OneToOne
+    @JoinColumn(name = "profile_id")
     private Profile profile;
 
     @Column(name = "created_ts")
@@ -42,7 +43,7 @@ public class Client extends AbstractEntity {
     @Column(name = "updated_ts")
     private LocalDateTime updatedTs;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "client")
     private List<Account> accounts = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)

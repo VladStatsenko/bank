@@ -21,6 +21,6 @@ public class ClientDto implements Serializable {
     @JsonProperty("birth_date")
     private Date birthDate;
     private String tin;
-    private Integer profileId;
+    private String login;
 
 }

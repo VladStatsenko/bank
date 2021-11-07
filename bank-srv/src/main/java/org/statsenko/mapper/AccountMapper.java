@@ -9,21 +9,21 @@ import java.util.List;
 
 @Mapper
 public interface AccountMapper extends ViewMapper<Account, AccountDto> {
-    @Mapping(source = "account.clientId", target = "clientId")
-    @Mapping(source = "bankAccounts.bankId", target = "bankId")
-    @Mapping(source = "type.accountTypeId", target = "typeId")
+    @Mapping(source = "client.lastName", target = "client")
+    @Mapping(source = "bankAccounts.bankName", target = "bank")
+    @Mapping(source = "type.typeName", target = "type")
     @Override
     AccountDto toDto(Account entity);
 
-    @Mapping(source = "account.clientId", target = "clientId")
-    @Mapping(source = "bankAccounts.bankId", target = "bankId")
-    @Mapping(source = "type.accountTypeId", target = "typeId")
+    @Mapping(source = "client.lastName", target = "client")
+    @Mapping(source = "bankAccounts.bankName", target = "bank")
+    @Mapping(source = "type.typeName", target = "type")
     @Override
     List<AccountDto> toDtoList(List<Account> entityList);
 
-    @Mapping( source = "clientId",target = "account.clientId")
-    @Mapping(source = "bankId",target = "bankAccounts.bankId")
-    @Mapping(source = "typeId",target = "type.accountTypeId")
+    @Mapping( source = "client",target = "client.clientId")
+    @Mapping(source = "bank",target = "bankAccounts.bankId")
+    @Mapping(source = "type",target = "type.accountTypeId")
     @Override
     Account toEntity(AccountDto dto);
 }

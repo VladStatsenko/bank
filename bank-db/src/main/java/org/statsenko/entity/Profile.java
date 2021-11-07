@@ -20,8 +20,8 @@ public class Profile extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int profileId;
 
-    @OneToOne
-    @JoinColumn(name = "client_id")
+
+    @OneToOne(mappedBy = "profile")
     private Client client;
 
     private String login;
