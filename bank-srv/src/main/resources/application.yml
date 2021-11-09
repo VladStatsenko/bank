@@ -7,6 +7,8 @@ spring:
       bootstrap-servers: localhost:9092
       group-id: group_id
       auto-offset-reset: earliest
+  application:
+    name: bank
 
     producer:
       bootstrap-servers: localhost:9092
