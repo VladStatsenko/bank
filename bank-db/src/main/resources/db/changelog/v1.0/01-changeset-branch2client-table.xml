@@ -1,0 +1,19 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+    <changeSet id="1" author="Vlad Stastenko">
+        <createTable tableName="branch2client">
+            <column name="client_id" type="int">
+                <constraints foreignKeyName="client_id" />
+            </column>
+            <column name="branch_id" type="int">
+                <constraints foreignKeyName="branch_id" />
+            </column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>

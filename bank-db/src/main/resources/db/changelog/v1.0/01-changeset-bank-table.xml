@@ -1,0 +1,26 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+    <changeSet id="1" author="Vlad Stastenko">
+        <createTable tableName="bank">
+            <column name="bank_id" type="bigint"
+                    autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="bank_name" type="varchar(250)" >
+                <constraints unique="true"/>
+            </column>
+            <column name="created_ts" type="timestamp"/>
+            <column name="updated_ts" type="timestamp"/>
+        </createTable>
+        <insert tableName="bank">
+            <column name="bank_id" value="1"/>
+            <column name="bank_name" value="SBERBANK"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

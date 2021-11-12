@@ -1,0 +1,16 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+    <include file="01-changeset-bank-table.xml" relativeToChangelogFile="true"/>
+    <include file="01-changeset-branch-table.xml" relativeToChangelogFile="true"/>
+    <include file="01-changeset-client-table.xml" relativeToChangelogFile="true"/>
+    <include file="01-changeset-profile-table.xml" relativeToChangelogFile="true"/>
+    <include file="01-changeset-account-table.xml" relativeToChangelogFile="true"/>
+    <include file="01-changeset-account_type-table.xml" relativeToChangelogFile="true"/>
+    <include file="01-changeset-branch2client-table.xml" relativeToChangelogFile="true"/>
+
+
+</databaseChangeLog>

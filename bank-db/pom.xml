@@ -10,6 +10,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>bank-db</artifactId>
+
+    <properties>
+        <!-- liquibase -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <liquibase-plugin.version>3.6.1</liquibase-plugin.version>
+        <liquibase.changelog>db.changelog-master.xml</liquibase.changelog>
+        <liquibase.host>localhost</liquibase.host>
+        <liquibase.port>5432</liquibase.port>
+        <liquibase.db>postgres</liquibase.db>
+        <liquibase.schema>bank</liquibase.schema>
+        <liquibase.user>postgres</liquibase.user>
+        <liquibase.password>password</liquibase.password>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyyMMdd-HHmmssSSS</maven.build.timestamp.format>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -17,14 +33,34 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
     </dependencies>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase-plugin.version}</version>
+                <configuration>
+                    <outputFileEncoding>UTF-8</outputFileEncoding>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>
+                        jdbc:postgresql://localhost:5432/postgres?currentSchema=bank
+                    </url>
+                    <username>postgres</username>
+                    <password>password</password>
+                    <changeLogFile>db.changelog-master.xml</changeLogFile>
+                    <changelogSchemaName>bank</changelogSchemaName>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

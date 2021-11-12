@@ -1,0 +1,36 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+    <changeSet id="1" author="Vlad Stastenko">
+        <createTable tableName="branch">
+            <column name="branch_id" type="bigint"
+                    autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="branch_name" type="varchar(250)" >
+                <constraints unique="true"/>
+            </column>
+            <column name="br_location" type="varchar(250)"/>
+            <column name="bank_id" type="int">
+                <constraints foreignKeyName="bank_id"/>
+            </column>
+            <column name="client_id" type="int">
+                <constraints foreignKeyName="branch2client.client_id"/>
+            </column>
+            <column name="created_ts" type="timestamp"/>
+            <column name="updated_ts" type="timestamp"/>
+        </createTable>
+        <insert tableName="branch">
+            <column name="branch_id" value="1"/>
+            <column name="branch_name" value="SBERBANK FILIAL"/>
+            <column name="br_location" value="MOSCOW"/>
+            <column name="bank_id" value="1"/>
+            <column name="client_id" value="1"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

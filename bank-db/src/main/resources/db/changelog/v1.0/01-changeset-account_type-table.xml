@@ -1,0 +1,30 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+    <changeSet id="1" author="Vlad Stastenko">
+        <createTable tableName="account_type">
+            <column name="type_id" type="bigint"
+                    autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="type_code" type="varchar(250)" >
+                <constraints unique="true"/>
+            </column>
+            <column name="type_name" type="varchar(250)"/>
+            <column name="type_desc" type="varchar(250)"/>
+            <column name="created_ts" type="timestamp"/>
+            <column name="updated_ts" type="timestamp"/>
+        </createTable>
+        <insert tableName="account_type">
+            <column name="type_id" value="1"/>
+            <column name="type_name" value="CREDIT"/>
+            <column name="type_code" value="CRE"/>
+            <column name="type_desc" value="Credit with 15% per year"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>
