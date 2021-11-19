@@ -13,6 +13,10 @@
                 <constraints foreignKeyName="branch_id" />
             </column>
         </createTable>
+        <insert tableName="branch2client">
+            <column name="client_id" value="1"/>
+            <column name="branch_id" value="1"/>
+        </insert>
     </changeSet>
 
 

@@ -17,10 +17,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SequenceGenerator(name = "client_id_seq", sequenceName = "client_id_seq", initialValue = 1, allocationSize = 1)
 public class Client extends AbstractEntity {
     @Column(name = "client_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "client_id_seq")
     private int clientId;
 
     @Column(name = "first_name")

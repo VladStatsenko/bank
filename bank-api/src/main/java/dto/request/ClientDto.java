@@ -14,11 +14,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClientDto implements Serializable {
-    @JsonProperty("first_name")
     private String firstName;
-    @JsonProperty("last_name")
     private String lastName;
-    @JsonProperty("mid_name")
     private String midName;
     @JsonProperty("birth_date")
     @JsonFormat(pattern="yyyy-MM-dd")

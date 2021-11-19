@@ -25,6 +25,11 @@ public class AccountService {
         return accountDtoList;
     }
 
+    public List<AccountDto> getClientAccount(int id){
+        List<AccountDto> accountDtoList = REST_MAPPER.toDtoList(accountRepository.getClientAccount(id));
+        return accountDtoList;
+    }
+
     public AccountDto createAccount(AccountDto accountDto){
         Account account = REST_MAPPER.toEntity(accountDto);
 

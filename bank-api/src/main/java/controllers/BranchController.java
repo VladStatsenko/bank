@@ -25,4 +25,10 @@ public interface BranchController {
 
     @DeleteMapping("/{id}")
     ResponseEntity deleteBranch(@PathVariable int id);
+
+    @GetMapping("bank/{id}")
+    ResponseEntity getAllBranchOfBank(@PathVariable int id);
+
+    @GetMapping("client/{id}")
+    ResponseEntity getBranchOnClient(@PathVariable int id);
 }

@@ -2,6 +2,7 @@ package org.statsenko.service.rest;
 
 import controllers.ClientController;
 import dto.request.ClientDto;
+import dto.request.ClientFilterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,5 +41,10 @@ public class ClientServiceImpl implements ClientController {
     public ResponseEntity<HttpStatus> deleteClient(int id) {
         clientService.deleteClient(id);
         return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity getClientOnBranch(int id) {
+        return ResponseEntity.ok(clientService.getClientOnBranch(id));
     }
 }

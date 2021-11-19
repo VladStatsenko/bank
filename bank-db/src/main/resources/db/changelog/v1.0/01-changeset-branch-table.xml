@@ -23,6 +23,7 @@
             <column name="created_ts" type="timestamp"/>
             <column name="updated_ts" type="timestamp"/>
         </createTable>
+        <createSequence sequenceName="branch_id_seq" startValue="1"/>
         <insert tableName="branch">
             <column name="branch_id" value="1"/>
             <column name="branch_name" value="SBERBANK FILIAL"/>

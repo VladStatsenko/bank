@@ -1,6 +1,7 @@
 package controllers;
 
 import dto.request.ClientDto;
+import dto.request.ClientFilterDto;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,4 +27,7 @@ public interface ClientController {
 
     @DeleteMapping("/{id}")
     ResponseEntity<HttpStatus> deleteClient(@PathVariable int id);
+
+    @GetMapping("/branch/{id}")
+    ResponseEntity getClientOnBranch(@PathVariable int id);
 }

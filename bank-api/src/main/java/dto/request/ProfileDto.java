@@ -14,9 +14,7 @@ public class ProfileDto implements Serializable {
 
     private String login;
     private String password;
-    @JsonProperty("first_name")
     private String firstName;
-    @JsonProperty("last_name")
     private String lastName;
 
 }

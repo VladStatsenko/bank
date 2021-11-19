@@ -1,26 +1,25 @@
 package org.statsenko.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Entity
 @Table(schema = "bank",name = "branch")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SequenceGenerator(name = "branch_id_seq", sequenceName = "branch_id_seq", initialValue = 1, allocationSize = 1)
 public class Branch extends AbstractEntity {
     @Column(name = "branch_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "branch_id_seq")
     private int branchId;
     @Column(name = "branch_name")
     private String branchName;

@@ -17,6 +17,11 @@ public class AccountServiceImpl implements AccountController {
     private final AccountService accountService;
 
     @Override
+    public ResponseEntity getClientAccount(int id) {
+        return ResponseEntity.ok(accountService.getClientAccount(id));
+    }
+
+    @Override
     public ResponseEntity<List<AccountDto>> getAllAccounts() {
         return ResponseEntity.ok(accountService.getAllAccounts());
     }

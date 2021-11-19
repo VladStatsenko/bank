@@ -19,6 +19,7 @@
             <column name="created_ts" type="timestamp"/>
             <column name="updated_ts" type="timestamp"/>
         </createTable>
+        <createSequence sequenceName="profile_id_seq" startValue="1"/>
         <insert tableName="profile">
             <column name="profile_id" value="1"/>
             <column name="first_name" value="Vlad"/>

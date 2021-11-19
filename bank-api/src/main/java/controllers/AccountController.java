@@ -15,6 +15,9 @@ public interface AccountController {
     @GetMapping
     ResponseEntity<List<AccountDto>> getAllAccounts();
 
+    @GetMapping("client/{id}")
+    ResponseEntity getClientAccount(@PathVariable int id);
+
     @PostMapping
     ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto);
 

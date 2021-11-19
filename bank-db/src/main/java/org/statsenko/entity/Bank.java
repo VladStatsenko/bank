@@ -1,9 +1,6 @@
 package org.statsenko.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,12 +11,14 @@ import java.util.List;
 @Table(schema = "bank",name = "bank")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@SequenceGenerator(name = "bank_id_seq", sequenceName = "bank_id_seq", initialValue = 1, allocationSize = 1)
 public class Bank extends AbstractEntity {
     @Column(name = "bank_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "bank_id_seq")
     private int bankId;
     @Column(name = "bank_name")
     private String bankName;

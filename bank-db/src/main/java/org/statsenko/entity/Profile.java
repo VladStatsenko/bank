@@ -14,10 +14,11 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SequenceGenerator(name = "profile_id_seq", sequenceName = "profile_id_seq", initialValue = 1, allocationSize = 1)
 public class Profile extends AbstractEntity {
     @Column(name = "profile_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profile_id_seq")
     private int profileId;
 
 

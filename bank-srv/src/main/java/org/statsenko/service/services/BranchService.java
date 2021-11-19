@@ -26,6 +26,16 @@ public class BranchService{
         return branchDtoList;
     }
 
+    public List<BranchDto> getAllBranchOfBank(int id){
+        List<BranchDto> branchDtoList = REST_MAPPER.toDtoList(branchRepository.getAllBranchOfBank(id));
+        return branchDtoList;
+    }
+
+    public List<BranchDto> getBranchOnClient(int id){
+        List<BranchDto> branchDtoList = REST_MAPPER.toDtoList(branchRepository.getBranchOnClient(id));
+        return branchDtoList;
+    }
+
     public BranchDto getBranchById(int id){
         BranchDto branchDto = REST_MAPPER.toDto(branchRepository.getById(id));
         return branchDto;

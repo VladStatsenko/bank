@@ -16,6 +16,7 @@
             <column name="created_ts" type="timestamp"/>
             <column name="updated_ts" type="timestamp"/>
         </createTable>
+        <createSequence sequenceName="bank_id_seq" startValue="1"/>
         <insert tableName="bank">
             <column name="bank_id" value="1"/>
             <column name="bank_name" value="SBERBANK"/>

@@ -45,4 +45,14 @@ public class BranchServiceImpl implements BranchController {
         branchService.deleteBranch(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity getBranchOnClient(int id) {
+        return ResponseEntity.ok(branchService.getBranchOnClient(id));
+    }
+
+    @Override
+    public ResponseEntity getAllBranchOfBank(int id) {
+        return ResponseEntity.ok(branchService.getAllBranchOfBank(id));
+    }
 }

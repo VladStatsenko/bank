@@ -1,13 +1,16 @@
 package org.statsenko.service.services;
 
 import dto.request.ClientDto;
+import dto.request.ClientFilterDto;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.statsenko.entity.Client;
 import org.statsenko.mapper.ClientMapper;
+import org.statsenko.mapper.filter.ClientFilterMapper;
 import org.statsenko.repository.ClientRepository;
+import org.statsenko.repository.filter.EntitySpecification;
 
 import java.util.List;
 
@@ -16,12 +19,18 @@ import java.util.List;
 public class ClientService {
 
     private static final ClientMapper REST_MAPPER = Mappers.getMapper(ClientMapper.class);
+    private static final ClientFilterMapper FILTER_MAPPER = Mappers.getMapper(ClientFilterMapper.class);
 
     @Autowired
     private final ClientRepository clientRepository;
 
     public List<ClientDto> getAllClients(){
         List<ClientDto> clientDtoList = REST_MAPPER.toDtoList(clientRepository.findAll());
+        return clientDtoList;
+    }
+
+    public List<ClientDto> getClientOnBranch(int id){
+        List<ClientDto> clientDtoList = REST_MAPPER.toDtoList(clientRepository.getClientOnBranch(id));
         return clientDtoList;
     }
 
@@ -48,5 +57,11 @@ public class ClientService {
 
     public void deleteClient(int id){
         clientRepository.deleteById(id);
+    }
+
+    public List<ClientDto> findByName(ClientFilterDto filterDto){
+        EntitySpecification specification = new EntitySpecification(FILTER_MAPPER.toFilter(filterDto));
+        List<ClientDto> client = REST_MAPPER.toDtoList(clientRepository.findAll(specification));
+        return client;
     }
 }

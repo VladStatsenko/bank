@@ -18,10 +18,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SequenceGenerator(name = "type_id_seq", sequenceName = "type_id_seq", initialValue = 1, allocationSize = 1)
 public class AccountType implements Serializable {
     @Column(name = "type_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "type_id_seq")
     private int accountTypeId;
     @Column(name = "type_code")
     private String typeCode;
