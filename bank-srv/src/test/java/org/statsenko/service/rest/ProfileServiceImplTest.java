@@ -43,9 +43,9 @@ class ProfileServiceImplTest {
     Client client2 = new Client(2,"alex","alex","Ivan", null,"333333",
             null,null,null,null,null);
     Profile profile1 = new Profile(1,client1,"qwerty","qwerty","vlad","ivanov",
-            null,null);
+            null,null,null);
     Profile profile2 = new Profile(2,client2,"qwerty123","qwerty123","Alex",
-            "petrov",null,null);
+            "petrov",null,null,null);
 
     List<Profile> profiles = new ArrayList<>(List.of(profile1,profile2));
 
@@ -77,7 +77,7 @@ class ProfileServiceImplTest {
 
     @Test
     void createProfile() throws Exception{
-        Profile profile3 = new Profile(3,null,"login","password","Alex","petrov",null,null);
+        Profile profile3 = new Profile(3,null,"login","password","Alex","petrov",null,null,null);
 
         Mockito.when(profileRepository.save(profile3)).thenReturn(profile3);
 
@@ -96,7 +96,7 @@ class ProfileServiceImplTest {
 
     @Test
     void editProfile() throws Exception{
-        Profile updateProfile = new Profile(1,null,"login","password","Alex","petrov",null,null);
+        Profile updateProfile = new Profile(1,null,"login","password","Alex","petrov",null,null,null);
 
         Mockito.when(profileRepository.save(updateProfile)).thenReturn(updateProfile);
 

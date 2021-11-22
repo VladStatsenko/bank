@@ -1,7 +1,6 @@
 package controllers;
 
 import dto.request.ClientDto;
-import dto.request.ClientFilterDto;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

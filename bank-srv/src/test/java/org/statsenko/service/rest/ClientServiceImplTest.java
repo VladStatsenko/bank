@@ -42,7 +42,7 @@ class ClientServiceImplTest {
     Branch branch1 = new Branch(1,"SBER FILIAL","MOSCOW",null,null,
             null,null);
     Profile profile = new Profile(1,null,"qwerty","qwerty","vlad","ivanov",
-            null,null);
+            null,null,null);
     Client client1 = new Client(1,"Vlad","Ivanov","Ivan", null,"33333",
             profile,null,null,null, List.of(branch1));
     Client client2 = new Client(2,"alex","alex","Ivan", null,"333333",

@@ -1,5 +1,6 @@
 package org.statsenko.entity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,9 @@ public class Profile extends AbstractEntity {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @Lob
+    @Column(name = "photo", columnDefinition = "BLOB")
+    private String photo;
 
     @Column(name = "created_ts")
     private LocalDateTime createdTs;

@@ -16,6 +16,7 @@
             <column name="password" type="varchar(250)"/>
             <column name="first_name" type="varchar(250)"/>
             <column name="last_name" type="varchar(250)"/>
+            <column name="photo" type="blob"/>
             <column name="created_ts" type="timestamp"/>
             <column name="updated_ts" type="timestamp"/>
         </createTable>

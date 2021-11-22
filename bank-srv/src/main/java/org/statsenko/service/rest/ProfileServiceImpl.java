@@ -3,11 +3,14 @@ package org.statsenko.service.rest;
 import controllers.ProfileController;
 import dto.request.ProfileDto;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.statsenko.service.services.ProfileService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -26,9 +29,10 @@ public class ProfileServiceImpl implements ProfileController {
         return ResponseEntity.ok(profileService.getProfileById(id));
     }
 
+    @SneakyThrows
     @Override
-    public ResponseEntity createProfile(ProfileDto profileDto) {
-        return ResponseEntity.ok(profileService.createProfile(profileDto));
+    public ResponseEntity createProfile(MultipartFile photo, ProfileDto profileDto){
+        return ResponseEntity.ok(profileService.createProfile(photo,profileDto));
     }
 
     @Override

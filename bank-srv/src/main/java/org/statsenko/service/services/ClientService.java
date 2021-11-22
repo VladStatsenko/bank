@@ -58,10 +58,4 @@ public class ClientService {
     public void deleteClient(int id){
         clientRepository.deleteById(id);
     }
-
-    public List<ClientDto> findByName(ClientFilterDto filterDto){
-        EntitySpecification specification = new EntitySpecification(FILTER_MAPPER.toFilter(filterDto));
-        List<ClientDto> client = REST_MAPPER.toDtoList(clientRepository.findAll(specification));
-        return client;
-    }
 }
