@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = {AccountServiceImpl.class, AccountService.class})
+@ContextConfiguration(classes = {AccountControllerImpl.class, AccountService.class})
 @WebMvcTest
 class AccountServiceImplTest {
 
@@ -55,7 +55,7 @@ class AccountServiceImplTest {
 
     @Test
     void getClientAccount() throws Exception{
-        Mockito.when(accountRepository.getClientAccount(1)).thenReturn(List.of(account1,account2));
+        Mockito.when(accountRepository.findClientByAccount(1)).thenReturn(List.of(account1,account2));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/account/client/1")

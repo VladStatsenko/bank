@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class ProfileServiceImpl implements ProfileController {
+public class ProfileControllerImpl implements ProfileController {
 
     private final ProfileService profileService;
 

@@ -13,10 +13,9 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class ClientServiceImpl implements ClientController {
+public class ClientControllerImpl implements ClientController {
 
     private final ClientService clientService;
-
     @Override
     public ResponseEntity<List<ClientDto>> getAllClients() {
         return ResponseEntity.ok(clientService.getAllClients());
@@ -46,5 +45,10 @@ public class ClientServiceImpl implements ClientController {
     @Override
     public ResponseEntity getClientOnBranch(int id) {
         return ResponseEntity.ok(clientService.getClientOnBranch(id));
+    }
+
+    @Override
+    public ResponseEntity<List<ClientDto>> getFilteredList(ClientFilterDto filterDto) {
+        return ResponseEntity.ok(clientService.getFilteredList(filterDto));
     }
 }

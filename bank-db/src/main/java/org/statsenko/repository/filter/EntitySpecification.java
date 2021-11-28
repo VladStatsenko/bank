@@ -22,7 +22,7 @@ public class EntitySpecification extends CustomEntitySpecification<Client> {
                 equal(Client_.lastName, filter.getLastName()),
                 containsIgnoreCase(Client_.midName, filter.getMidName()),
                 lessEquals(Client_.birthDate, filter.getBirthDate()),
-                equal(Client_.tin, filter.getTin())
+                containsIgnoreCase(Client_.tin, filter.getTin())
         ));
     }
 

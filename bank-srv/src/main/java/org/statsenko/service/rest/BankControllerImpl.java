@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class BankServiceImpl implements BankController {
+public class BankControllerImpl implements BankController {
 
     private final BankService bankService;
 

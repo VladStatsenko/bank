@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class BranchServiceImpl implements BranchController {
+public class BranchControllerImpl implements BranchController {
 
 
     private final BranchService branchService;

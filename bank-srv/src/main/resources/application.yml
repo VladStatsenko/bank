@@ -9,6 +9,14 @@ spring:
       auto-offset-reset: earliest
   application:
     name: bank
+  servlet:
+    multipart:
+      max-file-size: 1MB
+  datasource:
+    hikari:
+      auto-commit: false
+
+
 
 
     producer:
@@ -19,6 +27,7 @@ spring.datasource.url: jdbc:postgresql://localhost:5432/postgres?currentSchema=b
 spring.datasource.username: postgres
 spring.datasource.password: password
 
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation: true
 spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.hibernate.dll-auto: validate
 spring.jpa.show-sql: true

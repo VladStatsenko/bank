@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = {BranchServiceImpl.class, BranchService.class})
+@ContextConfiguration(classes = {BranchControllerImpl.class, BranchService.class})
 @WebMvcTest
 class BranchServiceImplTest {
 
@@ -126,7 +126,7 @@ class BranchServiceImplTest {
 
     @Test
     void getBranchOnClient() throws Exception{
-        Mockito.when(branchRepository.getBranchOnClient(1)).thenReturn(List.of(branch1,branch2));
+        Mockito.when(branchRepository.findBranchByClient(1)).thenReturn(List.of(branch1,branch2));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/branch/client/1")
@@ -140,7 +140,7 @@ class BranchServiceImplTest {
 
     @Test
     void getAllBranchOfBank() throws Exception {
-        Mockito.when(branchRepository.getAllBranchOfBank(1)).thenReturn(List.of(branch1));
+        Mockito.when(branchRepository.findBranchByBank(1)).thenReturn(List.of(branch1));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/branch/bank/1")

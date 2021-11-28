@@ -26,7 +26,7 @@ public class AccountService {
     }
 
     public List<AccountDto> getClientAccount(int id){
-        List<AccountDto> accountDtoList = REST_MAPPER.toDtoList(accountRepository.getClientAccount(id));
+        List<AccountDto> accountDtoList = REST_MAPPER.toDtoList(accountRepository.findClientByAccount(id));
         return accountDtoList;
     }
 

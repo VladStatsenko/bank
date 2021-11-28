@@ -2,6 +2,7 @@ package org.statsenko.service.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.statsenko.entity.Branch;
 import org.statsenko.entity.Client;
 import org.statsenko.entity.Profile;
+import org.statsenko.mapper.filter.ClientFilterMapper;
 import org.statsenko.repository.ClientRepository;
 import org.statsenko.service.services.ClientService;
 
@@ -26,9 +28,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = {ClientServiceImpl.class, ClientService.class})
+@ContextConfiguration(classes = {ClientControllerImpl.class, ClientService.class})
 @WebMvcTest
 class ClientServiceImplTest {
+
+    private static final ClientFilterMapper FILTER_MAPPER = Mappers.getMapper(ClientFilterMapper.class);
+
 
     @Autowired
     MockMvc mockMvc;
@@ -47,6 +52,8 @@ class ClientServiceImplTest {
             profile,null,null,null, List.of(branch1));
     Client client2 = new Client(2,"alex","alex","Ivan", null,"333333",
             null,null,null,null, List.of(branch1));
+    Client client3 = new Client(3,"Srgey","Ivanov","Ivann", null,"334333",
+            profile,null,null,null, List.of(branch1));
 
     List<Client> clients = new ArrayList<>(List.of(client1,client2));
 
@@ -123,7 +130,7 @@ class ClientServiceImplTest {
 
     @Test
     void getClientOnBranch() throws Exception{
-        Mockito.when(clientRepository.getClientOnBranch(1)).thenReturn(List.of(client1,client2));
+        Mockito.when(clientRepository.findClientByBranch(1)).thenReturn(List.of(client1,client2));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/client/branch/1")

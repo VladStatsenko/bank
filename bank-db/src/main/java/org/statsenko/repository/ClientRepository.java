@@ -1,6 +1,5 @@
 package org.statsenko.repository;
 
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +13,6 @@ import java.util.List;
 public interface ClientRepository extends JpaRepository<Client,Integer>, JpaSpecificationExecutor<Client> {
 
     @Query("SELECT c FROM Client c LEFT JOIN c.branch b WHERE b.branchId=:id")
-    List<Client> getClientOnBranch(@Param("id") int BranchId);
+    List<Client> findClientByBranch(@Param("id") int branchId);
 
-    Client findClientByFirstNameAndLastName(String firstName, String lastName);
 }

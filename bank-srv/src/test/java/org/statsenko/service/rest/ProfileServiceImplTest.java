@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = {ProfileServiceImpl.class, ProfileService.class})
+@ContextConfiguration(classes = {ProfileControllerImpl.class, ProfileService.class})
 @WebMvcTest
 class ProfileServiceImplTest {
 

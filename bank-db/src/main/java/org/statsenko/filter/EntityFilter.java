@@ -11,7 +11,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class EntityFilter {
 
-
     private String firstName;
     private String lastName;
     private String midName;

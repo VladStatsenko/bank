@@ -27,12 +27,12 @@ public class BranchService{
     }
 
     public List<BranchDto> getAllBranchOfBank(int id){
-        List<BranchDto> branchDtoList = REST_MAPPER.toDtoList(branchRepository.getAllBranchOfBank(id));
+        List<BranchDto> branchDtoList = REST_MAPPER.toDtoList(branchRepository.findBranchByBank(id));
         return branchDtoList;
     }
 
     public List<BranchDto> getBranchOnClient(int id){
-        List<BranchDto> branchDtoList = REST_MAPPER.toDtoList(branchRepository.getBranchOnClient(id));
+        List<BranchDto> branchDtoList = REST_MAPPER.toDtoList(branchRepository.findBranchByClient(id));
         return branchDtoList;
     }
 

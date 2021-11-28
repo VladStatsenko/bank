@@ -12,5 +12,5 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<Account,Integer> {
 
     @Query("SELECT a FROM Account a LEFT JOIN a.client c WHERE c.clientId=:id")
-    List<Account> getClientAccount(@Param("id") int ClientId);
+    List<Account> findClientByAccount(@Param("id") int clientId);
 }

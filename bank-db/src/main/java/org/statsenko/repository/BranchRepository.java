@@ -16,9 +16,9 @@ public interface BranchRepository extends JpaRepository<Branch, Integer> {
     Optional<Branch> findById(Integer integer);
 
     @Query("SELECT br FROM Branch br LEFT JOIN br.main b WHERE b.bankId = :id")
-    List<Branch> getAllBranchOfBank(@Param("id") int BankId);
+    List<Branch> findBranchByBank(@Param("id") int bankId);
 
     @Query("SELECT b FROM Branch b LEFT JOIN b.clients c WHERE c.clientId = :id")
-    List<Branch> getBranchOnClient(@Param("id")int ClientId);
+    List<Branch> findBranchByClient(@Param("id")int clientId);
 
 }

@@ -7,6 +7,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.statsenko.entity.Client;
+import org.statsenko.filter.EntityFilter;
 import org.statsenko.mapper.ClientMapper;
 import org.statsenko.mapper.filter.ClientFilterMapper;
 import org.statsenko.repository.ClientRepository;
@@ -30,7 +31,7 @@ public class ClientService {
     }
 
     public List<ClientDto> getClientOnBranch(int id){
-        List<ClientDto> clientDtoList = REST_MAPPER.toDtoList(clientRepository.getClientOnBranch(id));
+        List<ClientDto> clientDtoList = REST_MAPPER.toDtoList(clientRepository.findClientByBranch(id));
         return clientDtoList;
     }
 
@@ -57,5 +58,13 @@ public class ClientService {
 
     public void deleteClient(int id){
         clientRepository.deleteById(id);
+    }
+
+
+    public List<ClientDto> getFilteredList(ClientFilterDto filterDto){
+
+        final EntityFilter filter = FILTER_MAPPER.toFilter(filterDto);
+        List<ClientDto> clientDtoList = REST_MAPPER.toDtoList(clientRepository.findAll(new EntitySpecification(filter)));
+        return clientDtoList;
     }
 }

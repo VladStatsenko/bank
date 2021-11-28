@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = {BankServiceImpl.class, BankService.class})
+@ContextConfiguration(classes = {BankControllerImpl.class, BankService.class})
 @WebMvcTest
 class BankServiceImplTest {
 
