@@ -3,6 +3,8 @@ package org.statsenko.mapper;
 import dto.request.BankDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Mappings;
 import org.statsenko.entity.Bank;
 
 import java.util.List;
@@ -22,4 +24,7 @@ public interface BankMapper extends ViewMapper<Bank, BankDto> {
 
     @Override
     List<Bank> toEntityList(List<BankDto> dtoList);
+
+    @Mappings(@Mapping(target = "bankId", ignore = true))
+    Bank update(BankDto source, @MappingTarget Bank target);
 }

@@ -13,6 +13,4 @@ public interface ViewMapper <E extends AbstractEntity, D>{
     E toEntity(D dto);
 
     List<E> toEntityList(List<D> dtoList);
-
-
 }

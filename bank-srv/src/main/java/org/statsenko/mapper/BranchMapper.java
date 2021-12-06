@@ -3,6 +3,8 @@ package org.statsenko.mapper;
 import dto.request.BranchDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Mappings;
 import org.statsenko.entity.Branch;
 
 import java.util.List;
@@ -23,4 +25,8 @@ public interface BranchMapper extends ViewMapper<Branch, BranchDto> {
 
     @Override
     List<Branch> toEntityList(List<BranchDto> dtoList);
+
+    @Mapping(target = "branchId", ignore = true)
+    @Mapping(source = "main", target = "main.bankId")
+    Branch update(BranchDto source, @MappingTarget Branch target);
 }

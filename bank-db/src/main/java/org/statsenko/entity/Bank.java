@@ -11,7 +11,6 @@ import java.util.List;
 @Table(schema = "bank",name = "bank")
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @SequenceGenerator(name = "bank_id_seq", sequenceName = "bank_id_seq", initialValue = 1, allocationSize = 1)
