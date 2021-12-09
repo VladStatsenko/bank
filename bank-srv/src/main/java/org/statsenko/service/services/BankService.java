@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.statsenko.entity.Bank;
 import org.statsenko.mapper.BankMapper;
 import org.statsenko.repository.BankRepository;
-import org.statsenko.service.aspect.Loggable;
+import org.statsenko.service.aop.Loggable;
 
 import java.util.List;
 

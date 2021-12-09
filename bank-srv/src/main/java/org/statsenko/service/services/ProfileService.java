@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.statsenko.entity.Profile;
 import org.statsenko.mapper.ProfileMapper;
 import org.statsenko.repository.ProfileRepository;
-import org.statsenko.service.aspect.Loggable;
+import org.statsenko.service.aop.Loggable;
 
 import java.util.List;
 

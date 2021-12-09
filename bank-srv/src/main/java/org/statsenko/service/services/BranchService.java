@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.statsenko.entity.Branch;
 import org.statsenko.mapper.BranchMapper;
 import org.statsenko.repository.BranchRepository;
-import org.statsenko.service.aspect.Loggable;
+import org.statsenko.service.aop.Loggable;
 
 import java.util.List;
 

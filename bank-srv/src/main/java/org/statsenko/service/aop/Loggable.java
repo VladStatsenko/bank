@@ -1,4 +1,4 @@
-package org.statsenko.service.aspect;
+package org.statsenko.service.aop;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

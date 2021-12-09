@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @ToString
 @Data
@@ -25,5 +26,6 @@ public class ClientDto implements Serializable {
     private Date birthDate;
     private String tin;
     private String login;
+    private List<BranchDto> branch;
 
 }

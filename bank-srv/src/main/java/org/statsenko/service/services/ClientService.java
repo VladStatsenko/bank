@@ -14,7 +14,7 @@ import org.statsenko.mapper.ClientMapper;
 import org.statsenko.mapper.filter.ClientFilterMapper;
 import org.statsenko.repository.ClientRepository;
 import org.statsenko.repository.filter.EntitySpecification;
-import org.statsenko.service.aspect.Loggable;
+import org.statsenko.service.aop.Loggable;
 
 import java.util.List;
 

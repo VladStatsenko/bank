@@ -2,25 +2,24 @@ server:
   port: 9000
 
 spring:
-  kafka:
-    consumer:
-      bootstrap-servers: localhost:9092
-      group-id: group_id
-      auto-offset-reset: earliest
   application:
     name: bank
   servlet:
     multipart:
       max-file-size: 1MB
-  datasource:
-    hikari:
-      auto-commit: false
 
-
-
-
-    producer:
-      bootstrap-servers: localhost:9092
+kafka:
+  enabled: true
+  bootstrapAddress: localhost:9092
+  producer:
+    id: producerServer
+  consumer:
+    id: consumerServer
+  group:
+    id: server.broadcast
+  topic:
+    to_analytic: to_analytic
+    to-executor: to_executor
 
 spring.datasource.driver-class-name: org.postgresql.Driver
 spring.datasource.url: jdbc:postgresql://localhost:5432/postgres?currentSchema=bank?createDatabaseIfNotExist=true
