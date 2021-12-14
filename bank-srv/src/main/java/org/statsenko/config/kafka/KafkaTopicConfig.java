@@ -19,6 +19,9 @@ public class KafkaTopicConfig {
     @Value(value = "${kafka.topic.to_analytic}")
     private String TOPIC;
 
+    @Value(value = "${kafka.topic.to_bank}")
+    private String BANKTOPIC;
+
     @Bean
     public KafkaAdmin kafkaAdmin() {
         Map<String, Object> configs = new HashMap<>();
@@ -30,5 +33,11 @@ public class KafkaTopicConfig {
     public NewTopic topic() {
         return new NewTopic(TOPIC, 1, (short) 1);
     }
+
+    @Bean
+    public NewTopic bankTopic() {
+        return new NewTopic(BANKTOPIC, 1, (short) 1);
+    }
+
 
 }

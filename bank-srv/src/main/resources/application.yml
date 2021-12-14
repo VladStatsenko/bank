@@ -19,7 +19,7 @@ kafka:
     id: server.broadcast
   topic:
     to_analytic: to_analytic
-    to-executor: to_executor
+    to_bank: to_bank
 
 spring.datasource.driver-class-name: org.postgresql.Driver
 spring.datasource.url: jdbc:postgresql://localhost:5432/postgres?currentSchema=bank?createDatabaseIfNotExist=true

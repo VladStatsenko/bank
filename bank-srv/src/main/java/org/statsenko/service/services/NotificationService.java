@@ -24,7 +24,7 @@ public class NotificationService {
     }
 
 
-    @KafkaListener(topics = "${kafka.topic.to_analytic}", containerFactory = "singleFactory")
+    @KafkaListener(topics = "${kafka.topic.to_bank}", containerFactory = "singleFactory")
     public void consume(NotificationDto dto) {
         log.info("=> consumed {}", dto);
     }
