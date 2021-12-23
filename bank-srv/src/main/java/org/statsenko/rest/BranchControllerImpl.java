@@ -1,7 +1,6 @@
-package org.statsenko.service.rest;
+package org.statsenko.rest;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
+import dto.response.MessageResponse;
 import org.statsenko.service.services.BranchService;
 import controllers.BranchController;
 import dto.request.BranchDto;
@@ -31,19 +30,18 @@ public class BranchControllerImpl implements BranchController {
     }
 
     @Override
-    public ResponseEntity<BranchDto> createBranch(BranchDto branchDto) {
+    public ResponseEntity<MessageResponse<BranchDto>> createBranch(BranchDto branchDto) {
         return ResponseEntity.ok(branchService.createBranch(branchDto));
     }
 
     @Override
-    public ResponseEntity<BranchDto> editBranch(BranchDto branchDto, int id) {
+    public ResponseEntity<MessageResponse<BranchDto>> editBranch(BranchDto branchDto, int id) {
         return ResponseEntity.ok(branchService.editBranch(branchDto, id));
     }
 
     @Override
     public ResponseEntity deleteBranch(int id) {
-        branchService.deleteBranch(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(branchService.deleteBranch(id));
     }
 
     @Override

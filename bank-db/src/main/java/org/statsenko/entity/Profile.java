@@ -23,8 +23,8 @@ public class Profile extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profile_id_seq")
     private int profileId;
 
-
-    @OneToOne(mappedBy = "profile")
+    @OneToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
     private String login;

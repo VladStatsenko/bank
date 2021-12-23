@@ -43,7 +43,7 @@ class ProfileServiceTest {
 
     @Test
     void createProfile() {
-        ProfileDto profileDto = new ProfileDto("shasha","qwerty123","Alexander","Sidorov");
+        ProfileDto profileDto = new ProfileDto("shasha","qwerty123","Alexander","Sidorov",1);
         Profile profile = REST_MAPPER.toEntity(profileDto);
 
         assertEquals("shasha",profile.getLogin());
@@ -53,7 +53,7 @@ class ProfileServiceTest {
 
     @Test
     void editProfile() {
-        ProfileDto profileDto = new ProfileDto("shasha","qwerty123","Alexander","Sidorov");
+        ProfileDto profileDto = new ProfileDto("shasha","qwerty123","Alexander","Sidorov",1);
         profile1 = REST_MAPPER.toEntity(profileDto);
 
         assertEquals("shasha",profile1.getLogin());

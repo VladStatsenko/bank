@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BankDto implements Serializable
+public class BankDto extends AbstractDto
 {
     private String bankName;
 }

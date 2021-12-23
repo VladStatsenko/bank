@@ -1,6 +1,7 @@
-package org.statsenko.service.rest;
+package org.statsenko.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dto.response.MessageResponse;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
@@ -16,8 +17,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.statsenko.entity.Branch;
 import org.statsenko.entity.Client;
 import org.statsenko.entity.Profile;
+import org.statsenko.mapper.ClientMapper;
 import org.statsenko.mapper.filter.ClientFilterMapper;
-import org.statsenko.repository.ClientRepository;
 import org.statsenko.service.services.ClientService;
 
 import java.util.ArrayList;
@@ -41,8 +42,10 @@ class ClientServiceImplTest {
     @Autowired
     ObjectMapper mapper;
 
+    ClientMapper REST_MAPPER = Mappers.getMapper(ClientMapper .class);
+
     @MockBean
-    ClientRepository clientRepository;
+    ClientService clientService;
 
     Branch branch1 = new Branch(1,"SBER FILIAL","MOSCOW",null,null,
             null,null);
@@ -59,7 +62,7 @@ class ClientServiceImplTest {
 
     @Test
     void getAllClients() throws Exception{
-        Mockito.when(clientRepository.findAll()).thenReturn(clients);
+        Mockito.when(clientService.getAllClients()).thenReturn(REST_MAPPER.toDtoList(clients));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/client")
@@ -71,22 +74,24 @@ class ClientServiceImplTest {
 
     @Test
     void getClient() throws Exception{
-        Mockito.when(clientRepository.getById(client1.getClientId())).thenReturn((client1));
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse(client1);
+        Mockito.when(clientService.getClientById(1)).thenReturn(messageResponse);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/client/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",notNullValue()))
-                .andExpect(jsonPath("$.firstName", is("Vlad")))
-                .andExpect(jsonPath("$.login",is("qwerty")));
+                .andExpect(jsonPath("$.response.firstName", is("Vlad")))
+                .andExpect(jsonPath("$.response.profile.login",is("qwerty")));
     }
 
     @Test
     void createClient() throws Exception{
         Client client3 = new Client(3,"petr","pterov","petrovich", null,"1212",null,null,null,null, null);
 
-        Mockito.when(clientRepository.save(client3)).thenReturn(client3);
+        Mockito.when(clientService.createClient(REST_MAPPER.toDto(client3))).thenReturn(REST_MAPPER.toDto(client3));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
                 .post("/client")
@@ -103,8 +108,9 @@ class ClientServiceImplTest {
     @Test
     void editClient() throws Exception{
         Client client3 = new Client(1,"petr","pterov","petrovich", null,"1212",null,null,null,null, null);
-
-        Mockito.when(clientRepository.save(client3)).thenReturn(client3);
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse(client3);
+        Mockito.when(clientService.editClient(REST_MAPPER.toDto(client3),1)).thenReturn(messageResponse);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
                 .put("/client/1")
@@ -115,12 +121,14 @@ class ClientServiceImplTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",notNullValue()))
-                .andExpect(jsonPath("$.firstName", is("petr")));
+                .andExpect(jsonPath("$.response.firstName", is("petr")));
     }
 
     @Test
     void deleteClient() throws Exception{
-        Mockito.when(clientRepository.getById(client1.getClientId())).thenReturn(client1);
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse("Client deleted");
+        Mockito.when(clientService.deleteClient(1)).thenReturn(messageResponse);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/client/1")
@@ -130,15 +138,16 @@ class ClientServiceImplTest {
 
     @Test
     void getClientOnBranch() throws Exception{
-        Mockito.when(clientRepository.findClientByBranch(1)).thenReturn(List.of(client1,client2));
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse(List.of(client1,client2));
+        Mockito.when(clientService.getClientOnBranch(1)).thenReturn(messageResponse);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/client/branch/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",notNullValue()))
-                .andExpect(jsonPath("$",hasSize(2)))
-                .andExpect(jsonPath("$[0].firstName", is("Vlad")))
-                .andExpect(jsonPath("$[1].firstName", is("alex")));
+                .andExpect(jsonPath("$.response[0].firstName", is("Vlad")))
+                .andExpect(jsonPath("$.response[1].firstName", is("alex")));
     }
 }

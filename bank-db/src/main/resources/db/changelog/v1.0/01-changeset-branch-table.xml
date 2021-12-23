@@ -15,10 +15,7 @@
             </column>
             <column name="br_location" type="varchar(250)"/>
             <column name="bank_id" type="int">
-                <constraints foreignKeyName="bank_id"/>
-            </column>
-            <column name="client_id" type="int">
-                <constraints foreignKeyName="branch2client.client_id"/>
+                <constraints foreignKeyName="bank_id" deleteCascade="true"/>
             </column>
             <column name="created_ts" type="timestamp"/>
             <column name="updated_ts" type="timestamp"/>
@@ -29,7 +26,6 @@
             <column name="branch_name" value="SBERBANK FILIAL"/>
             <column name="br_location" value="MOSCOW"/>
             <column name="bank_id" value="1"/>
-            <column name="client_id" value="1"/>
         </insert>
     </changeSet>
 

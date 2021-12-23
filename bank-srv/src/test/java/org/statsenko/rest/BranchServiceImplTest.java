@@ -1,7 +1,9 @@
-package org.statsenko.service.rest;
+package org.statsenko.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dto.response.MessageResponse;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,7 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.statsenko.entity.Bank;
 import org.statsenko.entity.Branch;
 import org.statsenko.entity.Client;
-import org.statsenko.repository.BranchRepository;
+import org.statsenko.mapper.BranchMapper;
 import org.statsenko.service.services.BranchService;
 
 import java.util.ArrayList;
@@ -37,8 +39,10 @@ class BranchServiceImplTest {
     @Autowired
     ObjectMapper mapper;
 
+    BranchMapper REST_MAPPER = Mappers.getMapper(BranchMapper.class);
+
     @MockBean
-    BranchRepository branchRepository;
+    BranchService branchService;
 
     Bank bank1 = new Bank(1,"SBER",null,null, null,null);
     Bank bank2 = new Bank(2,"ALFA",null,null, null,null);
@@ -55,7 +59,7 @@ class BranchServiceImplTest {
 
     @Test
     void getAllBranch() throws Exception {
-        Mockito.when(branchRepository.findAll()).thenReturn(branch);
+        Mockito.when(branchService.allBranch()).thenReturn(REST_MAPPER.toDtoList(branch));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/branch")
@@ -67,22 +71,25 @@ class BranchServiceImplTest {
 
     @Test
     void getBranchById() throws Exception{
-        Mockito.when(branchRepository.getById(branch1.getBranchId())).thenReturn((branch1));
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse(branch1);
+        Mockito.when(branchService.getBranchById(branch1.getBranchId())).thenReturn(messageResponse);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/branch/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",notNullValue()))
-                .andExpect(jsonPath("$.branchName", is("SBER FILIAL")))
-                .andExpect(jsonPath("$.main",is("SBER")));
+                .andExpect(jsonPath("$.response.branchName", is("SBER FILIAL")))
+                .andExpect(jsonPath("$.response.main.bankName",is("SBER")));
     }
 
     @Test
     void createBranch() throws Exception{
         Branch branch3 = new Branch(3,"SBER TMB","TAMBOV",null,null,null,null);
-
-        Mockito.when(branchRepository.save(branch3)).thenReturn(branch3);
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse(REST_MAPPER.toDto(branch3));
+        Mockito.when(branchService.createBranch(REST_MAPPER.toDto(branch3))).thenReturn(messageResponse);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
                 .post("/branch")
@@ -93,14 +100,15 @@ class BranchServiceImplTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",notNullValue()))
-                .andExpect(jsonPath("$.branchName", is("SBER TMB")));
+                .andExpect(jsonPath("$.response.branchName", is("SBER TMB")));
     }
 
     @Test
     void editBranch() throws Exception{
         Branch branch = new Branch(1,"SBERBANK FILIAL","TAMBOV",null,null,null,null);
-
-        Mockito.when(branchRepository.save(branch)).thenReturn(branch);
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse(REST_MAPPER.toDto(branch));
+        Mockito.when(branchService.editBranch(REST_MAPPER.toDto(branch), branch.getBranchId())).thenReturn(messageResponse);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
                 .put("/branch/1")
@@ -111,12 +119,14 @@ class BranchServiceImplTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",notNullValue()))
-                .andExpect(jsonPath("$.branchName", is("SBERBANK FILIAL")));
+                .andExpect(jsonPath("$.response.branchName", is("SBERBANK FILIAL")));
     }
 
     @Test
     void deleteBranch() throws Exception{
-        Mockito.when(branchRepository.getById(branch1.getBranchId())).thenReturn(branch1);
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse("Branch deleted");
+        Mockito.when(branchService.deleteBranch(branch1.getBranchId())).thenReturn(messageResponse);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/branch/1")
@@ -126,28 +136,30 @@ class BranchServiceImplTest {
 
     @Test
     void getBranchOnClient() throws Exception{
-        Mockito.when(branchRepository.findBranchByClient(1)).thenReturn(List.of(branch1,branch2));
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse(List.of(branch1,branch2));
+        Mockito.when(branchService.getBranchOnClient(client.getClientId())).thenReturn(messageResponse);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/branch/client/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",notNullValue()))
-                .andExpect(jsonPath("$",hasSize(2)))
-                .andExpect(jsonPath("$[0].branchName", is("SBER FILIAL")))
-                .andExpect(jsonPath("$[1].branchName", is("ALFA FILIAL")));
+                .andExpect(jsonPath("$.response[0].branchName", is("SBER FILIAL")))
+                .andExpect(jsonPath("$.response[1].branchName", is("ALFA FILIAL")));
     }
 
     @Test
     void getAllBranchOfBank() throws Exception {
-        Mockito.when(branchRepository.findBranchByBank(1)).thenReturn(List.of(branch1));
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse(List.of(branch1));
+        Mockito.when(branchService.getAllBranchOfBank(1)).thenReturn(messageResponse);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/branch/bank/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",notNullValue()))
-                .andExpect(jsonPath("$",hasSize(1)))
-                .andExpect(jsonPath("$[0].branchName", is("SBER FILIAL")));
+                .andExpect(jsonPath("$.response[0].branchName", is("SBER FILIAL")));
     }
 }

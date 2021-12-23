@@ -11,11 +11,12 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProfileDto implements Serializable {
+public class ProfileDto extends AbstractDto {
 
     private String login;
     private String password;
     private String firstName;
     private String lastName;
+    private Integer clientId;
 
 }

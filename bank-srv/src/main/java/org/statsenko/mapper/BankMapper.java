@@ -12,12 +12,16 @@ import java.util.List;
 @Mapper
 public interface BankMapper extends ViewMapper<Bank, BankDto> {
 
+    @Mapping(source = "bankId", target = "id")
     @Mapping(source = "bankName", target = "bankName")
     @Override
     BankDto toDto(Bank entity);
+
+    @Mapping(source = "bankId", target = "id")
     @Mapping(source = "bankName", target = "bankName")
     @Override
     List<BankDto> toDtoList(List<Bank> entityList);
+
     @Mapping(source = "bankName", target = "bankName")
     @Override
     Bank toEntity(BankDto dto);

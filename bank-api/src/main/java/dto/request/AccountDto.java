@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountDto implements Serializable {
+public class AccountDto extends AbstractDto {
 
     private String numberAccount;
     private String client;

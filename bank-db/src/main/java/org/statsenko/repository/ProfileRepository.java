@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 import org.statsenko.entity.Profile;
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile,Integer> {
+    boolean existsByLogin(String login);
 }

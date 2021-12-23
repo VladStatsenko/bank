@@ -1,16 +1,14 @@
-package org.statsenko.service.rest;
+package org.statsenko.rest;
 
 import controllers.ProfileController;
 import dto.request.ProfileDto;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.statsenko.service.services.ProfileService;
 
-import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -42,7 +40,6 @@ public class ProfileControllerImpl implements ProfileController {
 
     @Override
     public ResponseEntity deleteProfile(int id) {
-        profileService.deleteProfile(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(profileService.deleteProfile(id));
     }
 }

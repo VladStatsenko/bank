@@ -2,6 +2,7 @@ package org.statsenko.service.services;
 
 import dto.request.ClientDto;
 import dto.request.ClientFilterDto;
+import dto.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +36,31 @@ public class ClientService {
     }
 
     @Loggable
-    public List<ClientDto> getClientOnBranch(int id){
-        List<ClientDto> clientDtoList = REST_MAPPER.toDtoList(clientRepository.findClientByBranch(id));
-        return clientDtoList;
+    public MessageResponse<List<ClientDto>> getClientOnBranch(int id){
+        MessageResponse message = new MessageResponse();
+        if (clientRepository.findClientByBranch(id).isEmpty()){
+            message.setExceptionName("Not found");
+            message.setTechnicalDescription("Branch with your ID not found");
+        }
+        else {
+            List<ClientDto> clientDtoList = REST_MAPPER.toDtoList(clientRepository.findClientByBranch(id));
+            message.setResponse(clientDtoList);
+        }
+        return message;
     }
 
     @Loggable
-    public ClientDto getClientById(int id){
-        ClientDto client = REST_MAPPER.toDto(clientRepository.getById(id));
-        return client;
+    public MessageResponse<ClientDto> getClientById(int id){
+        MessageResponse message = new MessageResponse();
+        if (clientRepository.findById(id).orElse(null)==null){
+            message.setExceptionName("Not found");
+            message.setTechnicalDescription("Client with your ID not found");
+        }
+        else {
+            ClientDto client = REST_MAPPER.toDto(clientRepository.getById(id));
+            message.setResponse(client);
+        }
+        return message;
     }
 
     @Loggable
@@ -58,16 +75,33 @@ public class ClientService {
 
     @Loggable
     @Transactional(propagation = Propagation.REQUIRED)
-    public ClientDto editClient(ClientDto clientDto, int id){
-        Client client = REST_MAPPER.update(clientDto, clientRepository.getById(id));
-        clientRepository.save(client);
-        return clientDto;
+    public MessageResponse<ClientDto> editClient(ClientDto clientDto, int id){
+        MessageResponse message = new MessageResponse();
+        if (clientRepository.findById(id).orElse(null)==null){
+            message.setExceptionName("Not found");
+            message.setTechnicalDescription("Client with your ID not found");
+        }
+        else {
+            Client client = REST_MAPPER.update(clientDto, clientRepository.getById(id));
+            clientRepository.save(client);
+            message.setResponse(client);
+        }
+        return message;
     }
 
     @Loggable
     @Transactional(propagation = Propagation.REQUIRED)
-    public void deleteClient(int id){
-        clientRepository.deleteById(id);
+    public MessageResponse deleteClient(int id){
+        MessageResponse message = new MessageResponse();
+        if (clientRepository.findById(id).orElse(null)==null){
+            message.setExceptionName("Not found");
+            message.setTechnicalDescription("Client with your ID not found");
+        }
+        else {
+            clientRepository.deleteById(id);
+            message.setResponse("Client deleted");
+        }
+        return message;
     }
 
     @Loggable

@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BranchDto implements Serializable {
+public class BranchDto extends AbstractDto {
 
     private String branchName;
     private String location;

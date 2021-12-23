@@ -1,20 +1,23 @@
-package org.statsenko.service.rest;
+package org.statsenko.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dto.response.MessageResponse;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.statsenko.entity.Client;
 import org.statsenko.entity.Profile;
-import org.statsenko.repository.ProfileRepository;
+import org.statsenko.mapper.ProfileMapper;
 import org.statsenko.service.services.ProfileService;
 
 import java.util.ArrayList;
@@ -35,8 +38,10 @@ class ProfileServiceImplTest {
     @Autowired
     ObjectMapper mapper;
 
+    ProfileMapper REST_MAPPER = Mappers.getMapper(ProfileMapper.class);
+
     @MockBean
-    ProfileRepository profileRepository;
+    ProfileService profileService;
 
     Client client1 = new Client(1,"Vlad","Ivanov","Ivan", null,"33333",
             null,null,null,null, null);
@@ -52,7 +57,7 @@ class ProfileServiceImplTest {
 
     @Test
     void getAllProfile() throws Exception{
-        Mockito.when(profileRepository.findAll()).thenReturn(profiles);
+        Mockito.when(profileService.getAllProfile()).thenReturn(REST_MAPPER.toDtoList(profiles));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/profile")
@@ -64,41 +69,25 @@ class ProfileServiceImplTest {
 
     @Test
     void getProfileById() throws Exception {
-        Mockito.when(profileRepository.getById(profile1.getProfileId())).thenReturn(profile1);
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse(profile1);
+        Mockito.when(profileService.getProfileById(1)).thenReturn(messageResponse);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/profile/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",notNullValue()))
-                .andExpect(jsonPath("$.firstName", is("vlad")))
-                .andExpect(jsonPath("$.login",is("qwerty")));
-    }
-
-    @Test
-    void createProfile() throws Exception{
-        Profile profile3 = new Profile(3,null,"login","password","Alex","petrov",null,null,null);
-
-        Mockito.when(profileRepository.save(profile3)).thenReturn(profile3);
-
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
-                .post("/profile")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(this.mapper.writeValueAsString(profile3));
-
-        mockMvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$",notNullValue()))
-                .andExpect(jsonPath("$.firstName", is("Alex")))
-                .andExpect(jsonPath("$.login",is("login")));
+                .andExpect(jsonPath("$.response.firstName", is("vlad")))
+                .andExpect(jsonPath("$.response.login",is("qwerty")));
     }
 
     @Test
     void editProfile() throws Exception{
         Profile updateProfile = new Profile(1,null,"login","password","Alex","petrov",null,null,null);
-
-        Mockito.when(profileRepository.save(updateProfile)).thenReturn(updateProfile);
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse(updateProfile);
+        Mockito.when(profileService.editProfile(REST_MAPPER.toDto(updateProfile),1)).thenReturn(messageResponse);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
                 .put("/profile/1")
@@ -109,13 +98,15 @@ class ProfileServiceImplTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",notNullValue()))
-                .andExpect(jsonPath("$.firstName", is("Alex")))
-                .andExpect(jsonPath("$.login",is("login")));
+                .andExpect(jsonPath("$.response.firstName", is("Alex")))
+                .andExpect(jsonPath("$.response.login",is("login")));
     }
 
     @Test
     void deleteProfile() throws Exception{
-        Mockito.when(profileRepository.getById(profile1.getProfileId())).thenReturn(profile1);
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setResponse("Profile deleted");
+        Mockito.when(profileService.deleteProfile(1)).thenReturn(messageResponse);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/profile/1")

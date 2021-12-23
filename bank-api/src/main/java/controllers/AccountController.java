@@ -2,6 +2,7 @@ package controllers;
 
 import dto.request.AccountDto;
 import dto.response.InfoDto;
+import dto.response.MessageResponse;
 import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public interface AccountController {
     ResponseEntity getClientAccount(@PathVariable int id);
 
     @PostMapping
-    ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto);
+    ResponseEntity<MessageResponse<AccountDto>> createAccount(@RequestBody AccountDto accountDto);
 
     @DeleteMapping("/{id}")
     ResponseEntity<InfoDto> deleteAccount(@PathVariable int id);

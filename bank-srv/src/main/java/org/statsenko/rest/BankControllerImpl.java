@@ -1,9 +1,8 @@
-package org.statsenko.service.rest;
+package org.statsenko.rest;
 
 import controllers.BankController;
 import dto.request.BankDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.statsenko.service.services.BankService;
@@ -38,7 +37,6 @@ public class BankControllerImpl implements BankController {
 
     @Override
     public ResponseEntity deleteBank(int id) {
-        bankService.deleteBank(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(bankService.deleteBank(id));
     }
 }

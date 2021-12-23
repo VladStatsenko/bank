@@ -7,12 +7,18 @@
     <changeSet id="1" author="Vlad Stastenko">
         <createTable tableName="branch2client">
             <column name="client_id" type="int">
-                <constraints foreignKeyName="client_id" />
+                <constraints nullable="false" deleteCascade="true"/>
             </column>
             <column name="branch_id" type="int">
-                <constraints foreignKeyName="branch_id" />
+                <constraints nullable="false" deleteCascade="true"/>
             </column>
         </createTable>
+        <addForeignKeyConstraint constraintName="fk_client"
+                                 baseTableName="branch2client" baseColumnNames="client_id"
+                                 referencedTableName="client" referencedColumnNames="client_id" deleteCascade="true"/>
+        <addForeignKeyConstraint constraintName="fk_branch"
+                                 baseTableName="branch2client" baseColumnNames="branch_id"
+                                 referencedTableName="branch" referencedColumnNames="branch_id" deleteCascade="true"/>
         <insert tableName="branch2client">
             <column name="client_id" value="1"/>
             <column name="branch_id" value="1"/>

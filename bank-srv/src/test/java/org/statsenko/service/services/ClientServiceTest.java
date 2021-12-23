@@ -56,7 +56,7 @@ class ClientServiceTest {
 
     @Test
     void createClient() {
-        ClientDto clientDto = new ClientDto("Alexey","Petrov","midName",null,"12","1",null);
+        ClientDto clientDto = new ClientDto("Alexey","Petrov","midName",null,"3333333",null);
         Client client = REST_MAPPER.toEntity(clientDto);
 
         assertEquals(1,client.getProfile().getProfileId());
@@ -66,7 +66,7 @@ class ClientServiceTest {
 
     @Test
     void editClient() {
-        ClientDto clientDto = new ClientDto("Alexey","Petrov","midName",null,"12","1",null);
+        ClientDto clientDto = new ClientDto("Alexey","Petrov","midName",null,"222222",null);
         client1 = REST_MAPPER.toEntity(clientDto);
 
         assertEquals(1,client1.getProfile().getProfileId());

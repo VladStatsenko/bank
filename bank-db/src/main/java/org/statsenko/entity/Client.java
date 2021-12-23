@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -35,8 +37,7 @@ public class Client extends AbstractEntity {
     @Column(name = "tin")
     private String tin;
 
-    @OneToOne
-    @JoinColumn(name = "profile_id")
+    @OneToOne(mappedBy = "client")
     private Profile profile;
 
     @Column(name = "created_ts")
@@ -44,10 +45,12 @@ public class Client extends AbstractEntity {
     @Column(name = "updated_ts")
     private LocalDateTime updatedTs;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", orphanRemoval = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Account> accounts = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinTable(name = "branch2client",
             joinColumns = @JoinColumn(name = "client_id"),
             inverseJoinColumns = @JoinColumn(name = "branch_id"))

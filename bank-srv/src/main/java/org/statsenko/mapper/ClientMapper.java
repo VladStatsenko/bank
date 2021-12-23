@@ -12,15 +12,14 @@ import java.util.List;
 @Mapper(uses = BranchMapper.class)
 public interface ClientMapper extends ViewMapper<Client, ClientDto> {
 
-    @Mapping(source = "profile.login",target = "login")
+    @Mapping(source = "clientId", target = "id")
     @Override
     ClientDto toDto(Client entity);
 
-    @Mapping(source = "profile.login",target = "login")
+    @Mapping(source = "clientId", target = "id")
     @Override
     List<ClientDto> toDtoList(List<Client> entityList);
 
-    @Mapping(source = "login",target = "profile.profileId")
     @Override
     Client toEntity(ClientDto dto);
 

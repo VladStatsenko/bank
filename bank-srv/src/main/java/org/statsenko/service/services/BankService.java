@@ -1,6 +1,7 @@
 package org.statsenko.service.services;
 
 import dto.request.BankDto;
+import dto.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,17 @@ public class BankService {
     private final BankRepository bankRepository;
 
     @Loggable
-    public BankDto getBankById(int id){
-        BankDto bank = REST_MAPPER.toDto(bankRepository.getById(id));
-        return bank;
+    public MessageResponse<BankDto> getBankById(int id){
+        MessageResponse message = new MessageResponse();
+        if (bankRepository.findById(id).orElse(null)==null){
+            message.setExceptionName("Not found id");
+            message.setTechnicalDescription("Bank with your ID not found");
+        }
+        else {
+            BankDto bank = REST_MAPPER.toDto(bankRepository.getById(id));
+            message.setResponse(bank);
+        }
+        return message;
     }
 
     @Loggable
@@ -35,14 +44,23 @@ public class BankService {
 
     @Loggable
     @Transactional(propagation = Propagation.REQUIRED)
-    public BankDto createBank(BankDto bankDto){
-        Bank bank = REST_MAPPER.toEntity(bankDto);
-        bankRepository.save(bank);
-        return bankDto;
+    public MessageResponse<BankDto> createBank(BankDto bankDto){
+        MessageResponse message = new MessageResponse();
+
+        if (bankRepository.existsByBankName(bankDto.getBankName())){
+            message.setExceptionName("Similar name");
+            message.setTechnicalDescription("Bank with this name already exist");
+        }
+        else {
+            Bank bank = REST_MAPPER.toEntity(bankDto);
+            bankRepository.save(bank);
+            message.setResponse(bankDto);
+        }
+        return message;
     }
 
     @Loggable
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional
     public BankDto editBank(BankDto bankDto, int id){
         Bank bank = REST_MAPPER.update(bankDto, bankRepository.getById(id));
         bankRepository.save(bank);
@@ -51,7 +69,16 @@ public class BankService {
 
     @Loggable
     @Transactional(propagation = Propagation.REQUIRED)
-    public void deleteBank(int id){
-        bankRepository.deleteById(id);
+    public MessageResponse deleteBank(int id){
+        MessageResponse message = new MessageResponse();
+        if (bankRepository.findById(id).orElse(null)==null){
+            message.setExceptionName("Not found");
+            message.setTechnicalDescription("Bank with your ID not found");
+        }
+        else {
+            bankRepository.deleteById(id);
+            message.setResponse("Bank deleted");
+        }
+        return message;
     }
 }

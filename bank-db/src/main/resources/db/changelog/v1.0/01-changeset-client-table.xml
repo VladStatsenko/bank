@@ -15,12 +15,6 @@
             <column name="mid_name" type="varchar(250)"/>
             <column name="birth_date" type="datetime"/>
             <column name="tin" type="varchar(250)"/>
-            <column name="profile_id" type="int">
-                <constraints foreignKeyName="profile_id"/>
-            </column>
-            <column name="branch_id" type="int">
-                <constraints foreignKeyName="branch2client.branch_id"/>
-            </column>
             <column name="created_ts" type="timestamp"/>
             <column name="updated_ts" type="timestamp"/>
         </createTable>
@@ -32,8 +26,6 @@
             <column name="mid_name" value="Alexandrovich"/>
             <column name="birth_date" value="2000-12-12"/>
             <column name="tin" value="123213434"/>
-            <column name="profile_id" value="1"/>
-            <column name="branch_id" value="1"/>
         </insert>
     </changeSet>
 

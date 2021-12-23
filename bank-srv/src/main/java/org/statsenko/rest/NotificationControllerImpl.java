@@ -1,4 +1,4 @@
-package org.statsenko.service.rest;
+package org.statsenko.rest;
 
 import controllers.NotificationController;
 import dto.request.NotificationDto;

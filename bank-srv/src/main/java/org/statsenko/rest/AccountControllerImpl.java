@@ -1,9 +1,9 @@
-package org.statsenko.service.rest;
+package org.statsenko.rest;
 
 import controllers.AccountController;
 import dto.request.AccountDto;
+import dto.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.statsenko.service.services.AccountService;
@@ -28,14 +28,13 @@ public class AccountControllerImpl implements AccountController {
 
 
     @Override
-    public ResponseEntity<AccountDto> createAccount(AccountDto accountDto) {
+    public ResponseEntity<MessageResponse<AccountDto>> createAccount(AccountDto accountDto) {
         return ResponseEntity.ok(accountService.createAccount(accountDto));
     }
 
 
     @Override
     public ResponseEntity deleteAccount(int id) {
-        accountService.deleteAccount(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(accountService.deleteAccount(id));
     }
 }

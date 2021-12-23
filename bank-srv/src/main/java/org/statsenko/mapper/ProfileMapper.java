@@ -12,10 +12,10 @@ import java.util.List;
 @Mapper
 public interface ProfileMapper extends ViewMapper<Profile, ProfileDto> {
 
-
+    @Mapping(source = "profileId", target = "id")
     @Override
     ProfileDto toDto(Profile entity);
-
+    @Mapping(source = "profileId", target = "id")
     @Override
     List<ProfileDto> toDtoList(List<Profile> entityList);
 

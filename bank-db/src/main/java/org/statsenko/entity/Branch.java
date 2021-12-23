@@ -2,6 +2,9 @@ package org.statsenko.entity;
 
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -32,9 +35,12 @@ public class Branch extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "bank_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Bank main;
 
     @ManyToMany(mappedBy = "branch")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Client> clients = new ArrayList<>();
 
 }

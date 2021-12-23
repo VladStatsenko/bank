@@ -16,7 +16,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientDto implements Serializable {
+public class ClientDto extends AbstractDto {
+
     private String firstName;
     private String lastName;
     private String midName;
@@ -25,7 +26,5 @@ public class ClientDto implements Serializable {
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date birthDate;
     private String tin;
-    private String login;
     private List<BranchDto> branch;
-
 }

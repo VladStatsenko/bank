@@ -26,10 +26,10 @@ public class Bank extends AbstractEntity {
     @Column(name = "updated_ts")
     private LocalDateTime updatedTs;
 
-    @OneToMany(mappedBy = "main")
+    @OneToMany( orphanRemoval = true, mappedBy = "main")
     private List<Branch> branchesList = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "bankAccounts")
+    @OneToMany(mappedBy = "bankAccounts",orphanRemoval = true)
     private List<Account> accountList = new ArrayList<>();
 }

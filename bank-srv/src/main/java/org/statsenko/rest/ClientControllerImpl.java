@@ -1,10 +1,10 @@
-package org.statsenko.service.rest;
+package org.statsenko.rest;
 
 import controllers.ClientController;
 import dto.request.ClientDto;
 import dto.request.ClientFilterDto;
+import dto.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.statsenko.service.services.ClientService;
@@ -22,7 +22,7 @@ public class ClientControllerImpl implements ClientController {
     }
 
     @Override
-    public ResponseEntity<ClientDto> getClient(int id) {
+    public ResponseEntity<MessageResponse<ClientDto>> getClient(int id) {
         return ResponseEntity.ok(clientService.getClientById(id));
     }
 
@@ -32,14 +32,13 @@ public class ClientControllerImpl implements ClientController {
     }
 
     @Override
-    public ResponseEntity<ClientDto> editClient(ClientDto clientDto, int id) {
+    public ResponseEntity<MessageResponse<ClientDto>> editClient(ClientDto clientDto, int id) {
         return ResponseEntity.ok(clientService.editClient(clientDto, id));
     }
 
     @Override
-    public ResponseEntity<HttpStatus> deleteClient(int id) {
-        clientService.deleteClient(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+    public ResponseEntity<MessageResponse> deleteClient(int id) {
+        return ResponseEntity.ok(clientService.deleteClient(id));
     }
 
     @Override
